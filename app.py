@@ -23,44 +23,27 @@ def get_table_download_link(df):
 def main():
 
     df_modelo = pd.read_csv('dataframe_jpt.csv')
-
-
-
     st.image('logocanopy.png', width= 200)
     st.title('Sistema de recebimento de dados')
     st.subheader('Canopy Remote Sensing Solutions')
     st.text('Esta é uma aplicação para padronização do recebimento de dados de parcelas de inventário')
     st.markdown(" ")
     st.markdown(get_table_download_link(df_modelo), unsafe_allow_html=True)
-
     file = st.file_uploader('Escolha a base de dados que deseja analisar (.csv)', type = 'csv')
-
-
 
     if file is not None:
         st.subheader('Analisando os dados...')
         st.markdown(" ")
         df = pd.read_csv(file,  index_col=False)
-
-        # st.markdown('**Número de linhas:**')
-        # st.markdown(df.shape[0])
-        # st.markdown('**Número de colunas:**')
-        # st.markdown(df.shape[1])
-        # st.markdown('**Nome das colunas:**')
         col_names = list(df.columns)
-        # st.markdown(col_names)
-
         st.markdown('**Visualizar CSV:**')
         ver_df = st.checkbox('Visualizar')
         if ver_df:
-            # st.markdown("checkado")
             st.dataframe(pd.DataFrame(df))
-
 
         st.markdown("**Espacialização das parcelas...**")
         espacializar = st.checkbox("Espacializar Parcelas")
         if espacializar:
-            # st.map(df, zoom=3)
             layer = pdk.Layer(
                 'PointCloudLayer',
                 df,
@@ -79,8 +62,6 @@ def main():
                 initial_view_state=view_state,
                 )
             st.pydeck_chart(r)
-
-
 
         st.markdown("**Checando nome de colunas...**")
         if "User_ID" in col_names:
@@ -102,8 +83,8 @@ def main():
                         '''
 
                 # The mail addresses and password
-                sender_address = 'canopysender@gmail.com'
-                sender_pass = 'Send&Junior'
+                sender_address = 'insira@seu@email' #ficticio
+                sender_pass = 'insira@a@senha@do@recebedor' #ficticio
                 receiver_address = 'jessicagerente@gmail.com'
                 # Setup the MIME
                 message = MIMEMultipart()
@@ -137,15 +118,9 @@ def main():
                 unsafe_allow_html=True)
             st.text("Favor modificar o nome da coluna para 'idt', conforme csv modelo")
 
-
-
-
-
 if __name__ == "__main__":
     main()
 
-
-####
 #exemplo de mapa
 # st.deck_gl_chart(
 #     viewport = {
